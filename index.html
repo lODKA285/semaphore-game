@@ -1,17 +1,84 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <title>Семафорный Вызов</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <h1>Семафорный Вызов</h1>
-  <button onclick="startTraining()">Обучение</button>
-  <button onclick="startGame()">Игра</button>
-  <button onclick="startTimerMode()">Режим на время</button>
-  <div id="game-area"></div>
+import React, { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
-  <script src="script.js"></script>
-</body>
-</html>
+// Условные направления флажков для русских букв
+const semaphoreAlphabet = {
+  А: ["↖", "⬇"],
+  Б: ["⬆", "↖"],
+  В: ["➡", "↖"],
+  Г: ["⬆", "➡"],
+  Д: ["⬇", "➡"],
+  Е: ["⬆", "⬅"],
+  Ж: ["⬇", "⬅"],
+  З: ["⬆", "↘"],
+  И: ["⬇", "↘"],
+  Й: ["⬆", "↙"],
+  К: ["⬇", "↙"],
+  Л: ["⬆", "⬇"],
+  М: ["⬅", "➡"],
+  Н: ["↖", "↗"],
+  О: ["↘", "↙"],
+  П: ["↖", "↙"],
+  Р: ["↗", "↘"],
+  С: ["↗", "↖"],
+  Т: ["↗", "↙"],
+  У: ["↖", "↘"],
+  Ф: ["➡", "⬅"],
+  Х: ["↘", "⬅"],
+  Ц: ["↗", "⬇"],
+  Ч: ["↘", "⬇"],
+  Ш: ["↙", "⬇"],
+  Щ: ["↙", "⬅"],
+  Ъ: ["⬆", "⬆"],
+  Ы: ["⬇", "⬇"],
+  Ь: ["↖", "↖"],
+  Э: ["↗", "↗"],
+  Ю: ["↙", "↙"],
+  Я: ["↘", "↘"]
+};
+
+const getRandomLetter = () => {
+  const letters = Object.keys(semaphoreAlphabet);
+  return letters[Math.floor(Math.random() * letters.length)];
+};
+
+export default function SemaphoreGame() {
+  const [currentLetter, setCurrentLetter] = useState(getRandomLetter());
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  const nextRound = () => {
+    setCurrentLetter(getRandomLetter());
+    setShowAnswer(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-cyan-100 to-blue-200 flex flex-col items-center justify-center p-4">
+      <Card className="max-w-md w-full text-center shadow-2xl rounded-2xl p-6">
+        <CardContent>
+          <h1 className="text-3xl font-bold mb-4">Семафорная азбука</h1>
+          <p className="text-lg mb-2">Какие флажки соответствуют букве:</p>
+          <motion.div
+            key={currentLetter}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="text-6xl font-bold mb-4"
+          >
+            {currentLetter}
+          </motion.div>
+
+          {showAnswer ? (
+            <div className="text-4xl mb-4">
+              {semaphoreAlphabet[currentLetter].join(" ")}
+            </div>
+          ) : (
+            <Button onClick={() => setShowAnswer(true)} className="mb-4">Показать ответ</Button>
+          )}
+
+          <Button onClick={nextRound} variant="secondary">Следующая буква</Button>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
