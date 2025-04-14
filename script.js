@@ -1,35 +1,31 @@
-const letters = [
-  { letter: 'А', image: 'a.png' },
-  { letter: 'Б', image: 'b.png' },
-  { letter: 'В', image: 'v.png' },
-];
-
-function startGame() {
-  const random = letters[Math.floor(Math.random() * letters.length)];
-  const gameArea = document.getElementById('game-area');
-
-  gameArea.innerHTML = `
-    <h2>Какая это буква?</h2>
-    <img src="${random.image}" alt="семафор" width="200">
-    <div id="choices"></div>
-  `;
-
-  const choices = shuffleArray(letters).map(item => {
-    return `<button onclick="checkAnswer('${item.letter}', '${random.letter}')">${item.letter}</button>`;
-  });
-
-  document.getElementById('choices').innerHTML = choices.join('');
-}
-
-function checkAnswer(answer, correct) {
-  const gameArea = document.getElementById('game-area');
-  if (answer === correct) {
-    gameArea.innerHTML = `<p>✅ Верно! Это "${correct}".</p><button onclick="startGame()">Следующая</button>`;
-  } else {
-    gameArea.innerHTML += `<p>❌ Неверно! Попробуй ещё раз.</p>`;
-  }
-}
-
-function shuffleArray(array) {
-  return [...array].sort(() => Math.random() - 0.5);
-}
+// Объект с буквами и соответствующими ссылками на изображения
+const alphabetImages = {
+  'А': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Б': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'В': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Г': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Д': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Е': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Ё': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Ж': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'З': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'И': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Й': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'К': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Л': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'М': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Н': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'О': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'П': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Р': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'С': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Т': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'У': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Ф': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Х': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Ц': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Ч': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Ш': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Щ': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png',
+  'Ъ': 'https://upload.wikimedia.org/wikipedia/commons/thumb/
+::contentReference[oaicite:0]{index=0}
